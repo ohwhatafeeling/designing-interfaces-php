@@ -2,6 +2,6 @@
 
 interface TrackableInterface
 {
-  protected author;
-  protected date;
+  public function getAuthor();
+  public function getDateTime();
 }

@@ -3,12 +3,12 @@
 require_once 'src/config.php';
 
 if (isset($_GET['id'])) {
-  $content = new Collection($repo, filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
+  $content = new Posts($repo, filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
 }
 if (isset($content) && $content->count() == 1 && $content->current()->status == "published") {
   $title = $content->current()->title;
 } else {
-  $content = new Collection($repo);
+  $content = new Posts($repo);
   $title = "Treehoue Blog";
 }
 

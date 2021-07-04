@@ -2,7 +2,7 @@
 
 interface ShareableInterface
 {
-  protected twitter;
-  protected facebook;
-  protected email;
+  public function shareTwitter();
+  public function shareFacebook();
+  public function shareEmail();
 }
