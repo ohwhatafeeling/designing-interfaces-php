@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo $title; ?></title>
+    <title><?php echo $content->getTitle(); ?></title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
@@ -24,10 +24,27 @@
             <a class="navbar-brand" href="index.php">Group News & Events</a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <!-- add page navigation //-->
+                    <?php
+                    foreach (new Pages($repo) as $page) {
+                      echo '<li class="nav-item';
+                      if (isset($slug) && $slug == $page->slug) {
+                        echo ' active';
+                      }
+                      echo '">';
+                      echo '<a class="nav-link" href="index.php?slug='.$page->slug.'">';
+                      echo ucwords(str_replace('-', ' ', $page->slug));
+                      echo '</a></li>';
+                    }
+                    ?>
                 </ul>
                 <ul class="navbar-nav mt-2 mt-md-0">
-                    <!-- add Latest News link //-->
+                    <li class="nav-item<?php
+                    if ($_SERVER['SCRIPT_NAME'] == '/blog.php') {
+                      echo ' active';
+                    }
+                    ?>">
+                      <a class="nav-link" href="blog.php">Latest Blog Posts</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -35,10 +52,19 @@
     </div>
 </div>
 
-<!-- Add featured page image //-->
+<?php if($content instanceof Pages) { ?>
+<!-- Begin page Image -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+            <img class="first-slide" src="assets/img/<?php echo $content->featuredImage(); ?>" alt="First slide">
+        </div>
+    </div>
+</div>
+<?php } ?>
 
 <!-- Begin page content -->
 <div class="container">
     <div class="page-header">
-        <h1><?php echo $title; ?></h1>
+        <h1><?php echo $content->getTitle(); ?></h1>
     </div>
